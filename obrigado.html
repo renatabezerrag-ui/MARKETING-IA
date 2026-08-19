@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pagamento confirmado — Hapvida Odonto Premium</title>
+<meta name="robots" content="noindex">
+<!-- TikTok Pixel Code Start -->
+<script>
+!function (w, d, t) {
+  w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie","holdConsentCall","revokeConsent","grantConsent"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e},ttq.load=function(e,n){var r="https://analytics.tiktok.com/i18n/pixel/events.js",o=n&&n.partner;ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=r,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};var n=document.createElement("script");n.type="text/javascript",n.async=!0,n.src=r+"?sdkid="+e+"&lib="+t;e=document.getElementsByTagName("script")[0];e.parentNode.insertBefore(n,e)};
+
+  ttq.load('D9OI1P3C77U1C011PTN0');
+  ttq.page();
+}(window, document, 'ttq');
+</script>
+<!-- TikTok Pixel Code End -->
+<style>
+  :root{
+    --turquoise:#0435AC;
+    --turquoise-ink:#032B87;
+    --navy:#0B2856;
+    --white:#FFFFFF;
+    --soft:#EEF1FA;
+    --green:#39B982;
+    --ink:#1B2430;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    min-height:100svh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:linear-gradient(180deg,var(--soft),var(--white));
+    font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+    color:var(--ink);
+    padding:24px;
+  }
+  .card{
+    max-width:440px;
+    width:100%;
+    background:var(--white);
+    border-radius:20px;
+    padding:40px 32px;
+    text-align:center;
+    box-shadow:0 20px 60px rgba(11,40,86,.14);
+  }
+  .check{
+    width:72px;height:72px;border-radius:50%;
+    background:var(--green);
+    display:flex;align-items:center;justify-content:center;
+    margin:0 auto 20px;
+  }
+  h1{font-size:1.4rem;margin:0 0 10px;color:var(--navy)}
+  p{margin:0 0 8px;line-height:1.5;color:#4A5568}
+  .plano{font-weight:700;color:var(--turquoise-ink)}
+  .btn{
+    display:inline-block;margin-top:22px;
+    background:var(--green);color:#fff;text-decoration:none;
+    font-weight:700;padding:14px 28px;border-radius:12px;
+    transition:filter .15s;
+  }
+  .btn:hover{filter:brightness(0.95)}
+  .hint{margin-top:16px;font-size:.85rem;color:#94A3B8}
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="check">
+      <svg width="34" height="34" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <h1>Pagamento confirmado!</h1>
+    <p>Sua assinatura do <span class="plano" id="planoNome">Plano Hapvida Odonto Premium</span> foi processada com sucesso.</p>
+    <p>Você será direcionado para o WhatsApp em instantes para finalizar seu cadastro.</p>
+    <a class="btn" id="waBtn" href="#" target="_blank" rel="noopener">Continuar para o WhatsApp</a>
+    <p class="hint">Se a janela não abrir automaticamente, use o botão acima.</p>
+  </div>
+
+<script>
+(function(){
+  var WHATSAPP_NUMBER = '5511926797242';
+  var PLANOS = {
+    mensal:    { nome: 'Plano Mensal',    preco: 'R$ 39,90/mês' },
+    semestral: { nome: 'Plano Semestral', preco: 'R$ 199,90 a cada 6 meses' },
+    anual:     { nome: 'Plano Anual',     preco: 'R$ 299,90/ano' }
+  };
+
+  var params = new URLSearchParams(window.location.search);
+  var planoKey = params.get('plano') || '';
+  var plano = PLANOS[planoKey] || { nome: 'Plano Hapvida Odonto Premium', preco: '' };
+
+  document.getElementById('planoNome').textContent = plano.nome;
+
+  var text = encodeURIComponent(
+    'Olá! Acabei de assinar o ' + plano.nome + (plano.preco ? ' (' + plano.preco + ')' : '') +
+    ' do Hapvida Odonto Premium e já efetuei o pagamento. Poderia me ajudar a concluir meu cadastro?'
+  );
+  var waLink = 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + text;
+  document.getElementById('waBtn').setAttribute('href', waLink);
+
+  if(window.ttq){
+    ttq.track('CompletePayment', {
+      content_name: 'Assinatura ' + plano.nome,
+      value: 0,
+      currency: 'BRL'
+    });
+  }
+
+  setTimeout(function(){
+    window.location.href = waLink;
+  }, 1800);
+})();
+</script>
+</body>
+</html>
